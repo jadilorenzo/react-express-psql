@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     window.localStorage.setItem('userId', userId)
-  }, [window, userId])
+  }, [userId])
 
   return (
     <Router>

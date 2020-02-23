@@ -7,14 +7,10 @@ function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [rooms, setRooms] = useState([])
-  const [currentRoom, setCurrentRoom] = useState('')
+  const [currentRoom, setCurrentRoom] = useState()
   const [allUsers, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState()
   const params = useParams()
-
-  useEffect(() => {
-    getAll()
-  }, [Api, userId])
 
   const getAll = () => {
     Api.get('users').then((r) => {
@@ -27,19 +23,25 @@ function MessagePage({Api, userId}) {
       })
     })
     Api.get('rooms').then(({rooms}) => {
-      setRooms(rooms)
-      setCurrentRoom(rooms[0])
+      setRooms(rooms.filter(x => params.userId === x.uid))
+      const accessibleRooms = rooms.filter(x => params.userId === x.uid)
+      console.log({accessibleRooms});
+      setCurrentRoom((accessibleRooms !== []) ? accessibleRooms : {})
       return {rooms}
     })
   }
 
-  const sendToDatabase = () => {
+  const sendMessage = () => {
     if (newMessage !== '') {
       Api.post('messages', {mid: v4(), uid: currentUser.uid, rid: currentRoom.rid, message: newMessage})
       setNewMessage('')
       getAll()
     }
   }
+
+  useEffect(() => {
+    getAll()
+  }, [Api, userId])
 
   return (
     <div className="h-screen">
@@ -65,7 +67,7 @@ function MessagePage({Api, userId}) {
         <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
         <button className={`${Styles.button}`} onClick={() => {
           if (newMessage !== '') {
-            sendToDatabase()
+            sendMessage()
           }
         }}>Send</button>
       </div>

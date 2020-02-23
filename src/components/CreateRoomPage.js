@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Api from '../Api'
 import {Redirect, useParams} from 'react-router-dom'
 import Styles from './styles'
@@ -8,7 +8,7 @@ function CreateRoomPage() {
   const [roomName, setRoomName] = useState('')
   const [redirect, setRedirect] = useState(false)
   const params = useParams()
-  console.log(params);
+
   if (redirect) {
     return <Redirect to={`/messages/${params.user}`}/>
   }

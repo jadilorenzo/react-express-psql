@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Redirect, Link} from 'react-router-dom'
+import React, {useState} from 'react';
+import {Redirect} from 'react-router-dom'
 import Styles from './styles'
 import Api from '../Api'
 import {v4} from 'uuid'
