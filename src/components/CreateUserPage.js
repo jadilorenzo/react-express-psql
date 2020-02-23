@@ -8,12 +8,13 @@ import {v4} from 'uuid'
 function CreateUserPage() {
   const [redirect, setRedirect] = useState(false)
   const [passcode, setPasscode] = useState('1234')
+  const [uuid, setUuid] = useState('')
   const [username, setUsername] = useState('New User Name')
   const [showWarning, setShowWarning] = useState(false)
 
 
   if (redirect) {
-    return <Redirect to='/messages'/>
+    return <Redirect to={`/messages/${uuid}`}/>
   }
 
   return (
@@ -21,7 +22,9 @@ function CreateUserPage() {
       <div className={`${Styles.header}`}>Create User Page</div>
       <div className={`${Styles.bodySection}`}>
         <form onSubmit={() => {
-            Api.post('users', {uid: v4() , name: username, passcode: Number.parseFloat(passcode)})
+            const uid = v4()
+            Api.post('users', {uid, name: username, passcode: Number.parseFloat(passcode)})
+            setUuid(uid)
             setRedirect(true)
         }}>
           Username

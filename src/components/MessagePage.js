@@ -7,33 +7,39 @@ function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
   const [newMessage, setNewMessage] = useState('')
   const [rooms, setRooms] = useState([])
-  const [currentRoom, setCurrentRoom] = useState()
+  const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState()
   const params = useParams()
 
   const getAll = () => {
     Api.get('users').then((r) => {
       setUsers(r.users)
-      setCurrentUser(r.users.filter(x => x.uid === userId)[0])
     }).then(() => {
       Api.get('messages').then(({db}) => {
         setDatabase(db)
         return {db}
       })
-    })
+    })  
     Api.get('rooms').then(({rooms}) => {
-      setRooms(rooms.filter(x => params.userId === x.uid))
-      const accessibleRooms = rooms.filter(x => params.userId === x.uid)
-      console.log({accessibleRooms});
-      setCurrentRoom((accessibleRooms !== []) ? accessibleRooms : {})
+      console.info({allRooms: rooms});
+      const accessibleRooms = rooms.filter(room => {
+        return JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
+        console.log(
+          room.users.replace('{', '[').replace('}', ']'),
+          params.userId,
+          JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
+        );
+      })
+      console.info('accessibleRooms', accessibleRooms);
+      setRooms(accessibleRooms)
+      setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
       return {rooms}
     })
   }
 
   const sendMessage = () => {
     if (newMessage !== '') {
-      Api.post('messages', {mid: v4(), uid: currentUser.uid, rid: currentRoom.rid, message: newMessage})
+      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: newMessage})
       setNewMessage('')
       getAll()
     }
@@ -43,14 +49,25 @@ function MessagePage({Api, userId}) {
     getAll()
   }, [Api, userId])
 
+  console.info({rooms});
+  console.info({currentRoom})
+
   return (
     <div className="h-screen">
       <div className={`${Styles.header}`}>Messages <Link to='/'><span role='img' aria-label=''>💬</span></Link></div>
       <div className={`${Styles.bodySection}`}>
         Rooms
-        {rooms.map((x, index) => <div key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`} onClick={() => {
-          setCurrentRoom(x)
-        }}>{x.name}</div>)}
+        {rooms.map((x, index) => {
+          return (
+            <div>
+              <div key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`} onClick={() => {
+                setCurrentRoom(x)
+              }}>
+                {x.name}
+              </div>
+            </div>
+          )
+        })}
         <Link to={`/createRoom/${params.userId}`}><span className='block text-blue-500'>Add +</span></Link>
       </div>
       <div className={`${Styles.bodySection}`}>

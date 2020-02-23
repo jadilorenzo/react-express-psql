@@ -12,26 +12,26 @@ import CreateUserPage from './components/CreateUserPage.js'
 
 
 const App = () => {
-  const [userId, setUserId] = useState(() => {
+  const getUserId = () => {
     if (window.localStorage.getItem('userId') !== undefined) {
       return window.localStorage.getItem('userId')
     } else {
       return ''
     }
-  })
+  }
 
   useEffect(() => {
-    window.localStorage.setItem('userId', userId)
-  }, [userId])
+    window.localStorage.setItem('userId', getUserId())
+  }, [getUserId, window])
 
   return (
     <Router>
       <Switch>
         <Route exact path='/messages/:userId'>
-          {userId === '' ? <Redirect to='/login'/> : <MessagePage userId={userId} Api={Api} /> }
+          {getUserId() === '' ? <Redirect to='/login'/> : <MessagePage userId={getUserId()} Api={Api} /> }
         </Route>
         <Route exact path='/login'>
-          <LoginPage setUserId={setUserId}/>
+          <LoginPage/>
         </Route>
         <Route exact path='/createRoom/:user'>
           <CreateRoomPage/>

@@ -3,7 +3,7 @@ import Api from '../Api'
 import {Redirect} from 'react-router-dom'
 import Styles from './styles'
 
-function LoginPage({setUserId, userId}) {
+function LoginPage() {
   const [username, setUsername] = useState('')
   const [passcode, setPasscode] = useState('')
   const [users, setUsers] = useState([])
@@ -19,6 +19,8 @@ function LoginPage({setUserId, userId}) {
     return <Redirect to={`/messages/${window.localStorage.getItem('userId')}`}/>
   }
 
+  console.log('users', users.filter(x => x.name === username && x.passcode === Number.parseFloat(passcode)));
+
   return (
     <div className="h-screen w-screen bg-gray-100">
       <div className={`${Styles.header}`}>Login</div>
@@ -27,7 +29,9 @@ function LoginPage({setUserId, userId}) {
           e.preventDefault()
           console.log(users);
           if (users.filter(x => (x.name === username && x.passcode === Number.parseFloat(passcode))).length > 0) {
-            setUserId(window.localStorage.getItem('userId'))
+            const userId = users.filter(x => x.name === username && x.passcode === Number.parseFloat(passcode))[0].uid
+            console.log(userId);
+            window.localStorage.setItem('userId', userId)
             setRedirect(true)
           }
         }}>
