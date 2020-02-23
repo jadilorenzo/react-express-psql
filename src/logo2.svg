@@ -4,8 +4,6 @@
     <linearGradient x1="0%" y1="0%" y2="100%" id="logoMarkGradient">
       <stop stop-color="#2298BD"></stop>
       <stop offset="1" stop-color="#0ED7B5"></stop>
-
-
     </linearGradient>
   </defs>
 </svg>

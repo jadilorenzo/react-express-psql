@@ -3,7 +3,7 @@ import Api from '../Api'
 import {Redirect} from 'react-router-dom'
 import Styles from './styles'
 
-function LoginPage({setUserId}) {
+function LoginPage({setUserId, userId}) {
   const [username, setUsername] = useState('')
   const [passcode, setPasscode] = useState('')
   const [users, setUsers] = useState([])
@@ -16,7 +16,7 @@ function LoginPage({setUserId}) {
   }, [])
 
   if (redirect) {
-    return <Redirect to='/messages'/>
+    return <Redirect to={`/messages/${window.localStorage.getItem('userId')}`}/>
   }
 
   return (
@@ -27,7 +27,7 @@ function LoginPage({setUserId}) {
           e.preventDefault()
           console.log(users);
           if (users.filter(x => (x.name === username && x.passcode === Number.parseFloat(passcode))).length > 0) {
-            setUserId(users.filter(x => x.name === username)[0].uid)
+            setUserId(window.localStorage.getItem('userId'))
             setRedirect(true)
           }
         }}>

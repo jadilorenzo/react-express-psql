@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid'
 import Styles from './styles'
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
@@ -10,8 +10,13 @@ function MessagePage({Api, userId}) {
   const [currentRoom, setCurrentRoom] = useState('')
   const [allUsers, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState()
+  const params = useParams()
 
   useEffect(() => {
+    getAll()
+  }, [Api, userId])
+
+  const getAll = () => {
     Api.get('users').then((r) => {
       setUsers(r.users)
       setCurrentUser(r.users.filter(x => x.uid === userId)[0])
@@ -26,23 +31,25 @@ function MessagePage({Api, userId}) {
       setCurrentRoom(rooms[0])
       return {rooms}
     })
-  }, [Api, userId])
+  }
 
-  useEffect(() => {
+  const sendToDatabase = () => {
     if (newMessage !== '') {
-      Api.post('messages', database[database.length - 1])
+      Api.post('messages', {mid: v4(), uid: currentUser.uid, rid: currentRoom.rid, message: newMessage})
+      setNewMessage('')
+      getAll()
     }
-  }, [database, Api, newMessage])
+  }
 
   return (
     <div className="h-screen">
-      <div className={`${Styles.header}`}>Messages <Link to='/login'><span role='img' aria-label=''>💬</span></Link></div>
+      <div className={`${Styles.header}`}>Messages <Link to='/'><span role='img' aria-label=''>💬</span></Link></div>
       <div className={`${Styles.bodySection}`}>
         Rooms
         {rooms.map((x, index) => <div key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`} onClick={() => {
           setCurrentRoom(x)
         }}>{x.name}</div>)}
-        <Link to='/createRoom'><span className='block text-blue-500'>Add +</span></Link>
+        <Link to={`/createRoom/${params.userId}`}><span className='block text-blue-500'>Add +</span></Link>
       </div>
       <div className={`${Styles.bodySection}`}>
         <div>Messages</div>
@@ -55,10 +62,10 @@ function MessagePage({Api, userId}) {
         }
         Send
         <hr/>
-        <input type='text' className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}></input>
+        <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
         <button className={`${Styles.button}`} onClick={() => {
           if (newMessage !== '') {
-            setDatabase(d => [...d, {mid: v4(), uid: currentUser.uid, rid: currentRoom.rid, message: newMessage}])
+            sendToDatabase()
           }
         }}>Send</button>
       </div>

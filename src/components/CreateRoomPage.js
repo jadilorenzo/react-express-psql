@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import Api from '../Api'
-import {Redirect} from 'react-router-dom'
+import {Redirect, useParams} from 'react-router-dom'
 import Styles from './styles'
 import {v4} from 'uuid'
 
 function CreateRoomPage() {
   const [roomName, setRoomName] = useState('')
   const [redirect, setRedirect] = useState(false)
-
+  const params = useParams()
+  console.log(params);
   if (redirect) {
-    return <Redirect to='/messages'/>
+    return <Redirect to={`/messages/${params.user}`}/>
   }
 
   return (
@@ -19,7 +20,7 @@ function CreateRoomPage() {
         <form onSubmit={(e) => {
           e.preventDefault()
           setRedirect(true)
-          Api.post('rooms', {rid: v4(), name: roomName})
+          Api.post('rooms', {rid: v4(), name: roomName, users: [params.user]})
         }}>
           Room Name
           <input value={roomName} className={`${Styles.input} w-full`} onChange={(e) => {

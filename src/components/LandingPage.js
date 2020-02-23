@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Redirect, Link} from 'react-router-dom'
 import Styles from './styles'
 
-function CreateRoomPage() {
+function LandingPage() {
   const [redirect, setRedirect] = useState(false)
 
   if (redirect) {
@@ -17,6 +17,11 @@ function CreateRoomPage() {
           Login
         </div>
       </Link>
+      <Link to='/create-user'>
+        <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl`}>
+          Create New User
+        </div>
+      </Link>
       <Link to='/about'>
         <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl`}>
           About
@@ -26,4 +31,4 @@ function CreateRoomPage() {
   );
 }
 
-export default CreateRoomPage;
+export default LandingPage;
