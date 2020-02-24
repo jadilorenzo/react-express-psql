@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
 import Styles from './styles'
 import {Link, useParams} from 'react-router-dom'
+import scrollIntoView from 'scroll-into-view'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
@@ -10,6 +11,7 @@ function MessagePage({Api, userId}) {
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
   const params = useParams()
+  const inputRef = React.createRef()
 
   const getAll = () => {
     Api.get('users').then((r) => {
@@ -46,6 +48,10 @@ function MessagePage({Api, userId}) {
     getAll()
   }, [Api, userId])
 
+  useEffect(() => {
+    scrollIntoView(inputRef.current)
+  }, [database, rooms, newMessage, currentRoom])
+
   console.info({rooms});
   console.info({currentRoom})
 
@@ -78,7 +84,7 @@ function MessagePage({Api, userId}) {
         }
         Send
         <hr/>
-        <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
+        <input ref={inputRef} type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
         <button className={`${Styles.button}`} onClick={() => {
           if (newMessage !== '') {
             sendMessage()

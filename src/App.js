@@ -25,31 +25,33 @@ const App = () => {
   }, [getUserId, window])
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/messages/:userId'>
-          {getUserId() === '' ? <Redirect to='/login'/> : <MessagePage userId={getUserId()} Api={Api} /> }
-        </Route>
-        <Route exact path='/login'>
-          <LoginPage/>
-        </Route>
-        <Route exact path='/createRoom/:userId'>
-          <CreateRoomPage/>
-        </Route>
-        <Route exact path='/'>
-          <LandingPage/>
-        </Route>
-        <Route exact path='/about'>
-          <AboutPage/>
-        </Route>
-       <Route exact path='/create-user'>
-          <CreateUserPage/>
-        </Route>
-        <Route>
-          404 Not Found
-        </Route>
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path='/messages/:userId'>
+            {getUserId() === '' ? <Redirect to='/login'/> : <MessagePage userId={getUserId()} Api={Api} /> }
+          </Route>
+          <Route exact path='/login'>
+            <LoginPage/>
+          </Route>
+          <Route exact path='/createRoom/:userId'>
+            <CreateRoomPage/>
+          </Route>
+          <Route exact path='/'>
+            <LandingPage/>
+          </Route>
+          <Route exact path='/about'>
+            <AboutPage/>
+          </Route>
+         <Route exact path='/create-user'>
+            <CreateUserPage/>
+          </Route>
+          <Route>
+            404 Not Found
+          </Route>
+        </Switch>
+      </Router>
+    </div>
 
   )
 }
