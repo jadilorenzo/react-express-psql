@@ -19,27 +19,24 @@ function MessagePage({Api, userId}) {
         setDatabase(db)
         return {db}
       })
-    })  
+    })
     Api.get('rooms').then(({rooms}) => {
       console.info({allRooms: rooms});
       const accessibleRooms = rooms.filter(room => {
         return JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
-        console.log(
-          room.users.replace('{', '[').replace('}', ']'),
-          params.userId,
-          JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
-        );
       })
       console.info('accessibleRooms', accessibleRooms);
       setRooms(accessibleRooms)
-      setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
+      if (currentRoom.rid === undefined){
+        setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
+      }
       return {rooms}
     })
   }
 
   const sendMessage = () => {
     if (newMessage !== '') {
-      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: newMessage})
+      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: newMessage}).then(getAll)
       setNewMessage('')
       getAll()
     }

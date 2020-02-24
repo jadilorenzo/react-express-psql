@@ -8,7 +8,7 @@ function LandingPage() {
       <div className={`${Styles.header}`}>Messages</div>
       <Link to='/login'>
         <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl`}>
-          Login <span className='_md:hidden text-md float-right' role='img' aria-label=''>➠</span>
+          Login <span className='_md:hidden float-right' role='img' aria-label=''><span className='text-md'>➠</span><span className='-my-1'>]</span></span>
         </div>
       </Link>
       <Link to='/create-user'>

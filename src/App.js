@@ -33,7 +33,7 @@ const App = () => {
         <Route exact path='/login'>
           <LoginPage/>
         </Route>
-        <Route exact path='/createRoom/:user'>
+        <Route exact path='/createRoom/:userId'>
           <CreateRoomPage/>
         </Route>
         <Route exact path='/'>

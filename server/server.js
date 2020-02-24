@@ -46,4 +46,10 @@ app.post('/api/post/users', async (req, res) => {
   res.json({db: 'Yay'})
 })
 
+app.post('/api/post/roomAddPerson', async (req, res) => {
+  pool.query(`UPDATE rooms SET users = $1 WHERE rid = $2;`, [req.body.db.users, req.body.db.rid])
+  res.json({db: 'Yay'})
+})
+
+
 app.listen(3333)
