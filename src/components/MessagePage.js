@@ -49,7 +49,7 @@ function MessagePage({Api, userId}) {
   }, [Api, userId])
 
   useEffect(() => {
-    scrollIntoView(inputRef.current)
+    scrollIntoView(inputRef.current, {time: 0})
   }, [database, rooms, newMessage, currentRoom])
 
   console.info({rooms});
@@ -63,9 +63,12 @@ function MessagePage({Api, userId}) {
         {rooms.map((x, index) => {
           return (
             <div>
-              <div key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`} onClick={() => {
-                setCurrentRoom(x)
-              }}>
+              <div
+                key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
+                onClick={() => {
+                  setCurrentRoom(x)
+                }}
+              >
                 {x.name}
               </div>
             </div>
@@ -75,16 +78,18 @@ function MessagePage({Api, userId}) {
       </div>
       <div className={`${Styles.bodySection}`}>
         <div>Messages</div>
-        {database
-          .filter(x => x.rid === currentRoom.rid)
-          .map((x, index) =>
-          <div className={`${Styles.bubble}`} key={index}>
-            {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
-          </div>)
-        }
+        {(database.filter(x => x.rid === currentRoom.rid).length > 0) ? <div className='overflow-y-scroll h-32 p-2 bg-gray-300 rounded shadow'>
+          {database
+            .filter(x => x.rid === currentRoom.rid)
+            .map((x, index) =>
+            <div {...((index === database.length - 1) ? {ref: inputRef} : {})} className={`${Styles.bubble}`} key={index}>
+              {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
+            </div>)
+          }
+        </div> : <div><em>No messges!</em></div>}
         Send
         <hr/>
-        <input ref={inputRef} type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
+        <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
         <button className={`${Styles.button}`} onClick={() => {
           if (newMessage !== '') {
             sendMessage()
