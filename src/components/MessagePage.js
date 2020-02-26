@@ -88,16 +88,19 @@ function MessagePage({Api, userId}) {
             </div>)
           }
         </div> : <div><em>No messges!</em></div>}
-        Send
-        <hr/>
-        <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
-        <button className={`${Styles.button}`} onClick={() => {
+        <form onSubmit={(e) => {
+          e.preventDefault()
           if (newMessage !== '') {
             sendMessage()
           }
-        }}>Send</button>
+        }}>
+          Send
+          <hr/>
+          <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
+          <button type='submit' className={`${Styles.button}`}>Send</button>
+        </form>
       </div>
-      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute left-0 bottom-0 p-5 hover:bg-blue-500'><img src={heart}/></a>
+      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img src={heart}/></a>
     </div>
   );
 }

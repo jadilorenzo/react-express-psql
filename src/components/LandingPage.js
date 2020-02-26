@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import Styles from './styles'
 import Enter from '../Enter.png'
+import menu from '../menu.svg'
+import plus from '../plus.svg'
 
 function LandingPage() {
   return (
@@ -23,12 +25,12 @@ function LandingPage() {
           </Link>
           <Link to='/create-user'>
             <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl`}>
-              Create User <span className='_md:hidden float-right' role='img' aria-label=''>+</span>
+              Create User <span className='_md:hidden float-right' role='img' aria-label=''><img className='h-5' src={plus}/></span>
             </div>
           </Link>
           <Link to='/about'>
-            <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl`}>
-              About <span className='_md:hidden float-right -my-1' role='img' aria-label=''>…</span>
+            <div className={`${Styles.bodySection} transition duration-500 ease-in-out hover:shadow-xl align-middle `}>
+              About <span className='_md:hidden float-right -my-1' role='img' aria-label=''><img className='h-4 mt-2' src={menu}/></span>
             </div>
           </Link>
         </div>
