@@ -8,7 +8,6 @@ import CreateRoomPage from './components/CreateRoomPage.js'
 import LandingPage from './components/LandingPage.js'
 import AboutPage from './components/AboutPage.js'
 import CreateUserPage from './components/CreateUserPage.js'
-import './App.css'
 
 
 const App = () => {
