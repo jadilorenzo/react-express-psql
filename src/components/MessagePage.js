@@ -3,6 +3,7 @@ import {v4} from 'uuid'
 import Styles from './styles'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
+import heart from '../heart.svg'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
@@ -78,7 +79,7 @@ function MessagePage({Api, userId}) {
       </div>
       <div className={`${Styles.bodySection}`}>
         <div>Messages</div>
-        {(database.filter(x => x.rid === currentRoom.rid).length > 0) ? <div className='overflow-y-scroll h-32 p-2 bg-gray-300 rounded shadow'>
+        {(database.filter(x => x.rid === currentRoom.rid).length > 0) ? <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
           {database
             .filter(x => x.rid === currentRoom.rid)
             .map((x, index) =>
@@ -96,6 +97,7 @@ function MessagePage({Api, userId}) {
           }
         }}>Send</button>
       </div>
+      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute left-0 bottom-0 p-5 hover:bg-blue-500'><img src={heart}/></a>
     </div>
   );
 }
