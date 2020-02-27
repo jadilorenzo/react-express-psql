@@ -39,7 +39,7 @@ function CreateUserPage() {
             }}/>
           Four Digit Passcode
           <input
-            type='number'
+            type='password'
             value={passcode}
             className={`input w-32 border focus:border-red-500`}
             onChange={(e) => {

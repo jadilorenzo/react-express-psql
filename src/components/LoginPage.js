@@ -44,7 +44,7 @@ function LoginPage() {
           }}/>
           Passcode
           <div className='bg-blue-600 p-1 rounded-full w-10'><div className='user-circle'><img className='mx-auto pt-1' alt='' src={lock}/></div></div>
-          <input type='text' placeholder='1234' className={`input w-32`} value={passcode} onChange={(e) => {
+          <input type='password' placeholder='1234' className={`input w-32`} value={passcode} onChange={(e) => {
             setPasscode(e.target.value)
           }}/>
           <hr/>
