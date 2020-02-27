@@ -9,7 +9,7 @@ function AboutPage() {
   return (
     <div className="h-screen w-screen bg-gray-100">
       <Header>
-        Resourses 📚
+        Resourses
       </Header>
       <div className='block md:flex'>
         <div className={`body-section md:w-1/3`}>
