@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom'
 import Api from '../Api'
 import {v4} from 'uuid'
-
+import Header from './Header'
 
 function CreateUserPage() {
   const [redirect, setRedirect] = useState(false)
@@ -18,7 +18,9 @@ function CreateUserPage() {
 
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`header`}>Create User Page</div>
+      <Header>
+        Create New User
+      </Header>
       <div className={`body-section`}>
         <form onSubmit={() => {
             const uid = v4()
