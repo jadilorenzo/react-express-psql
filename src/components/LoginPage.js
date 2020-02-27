@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Api from '../Api'
+import Header from './Header'
 import {Redirect} from 'react-router-dom'
 import user from './icon/user.svg'
 import lock from './icon/lock.svg'
@@ -25,7 +26,9 @@ function LoginPage() {
 
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`header`}>Login</div>
+      <Header>
+        Login
+      </Header>
       <div className={`body-section`}>
         <form onSubmit={(e) => {
           e.preventDefault()
