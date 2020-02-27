@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
+import Form from './Form.js'
 import heart from './icon/heart.svg'
 import send from './icon/up.svg'
 
@@ -12,7 +13,7 @@ function MessagePage({Api, userId}) {
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
   const params = useParams()
-  const inputRef = React.createRef()
+  const lastRef = React.createRef()
 
   const getAll = () => {
     Api.get('users').then((r) => {
@@ -37,10 +38,9 @@ function MessagePage({Api, userId}) {
     })
   }
 
-  const sendMessage = () => {
-    if (newMessage !== '') {
-      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: newMessage}).then(getAll)
-      setNewMessage('')
+  const sendMessage = (input) => {
+    if (input !== '') {
+      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: input}).then(getAll)
       getAll()
     }
   }
@@ -50,7 +50,7 @@ function MessagePage({Api, userId}) {
   }, [Api, userId])
 
   useEffect(() => {
-    scrollIntoView(inputRef.current, {time: 0})
+    scrollIntoView(lastRef.current, {time: 0})
   }, [database, rooms, newMessage, currentRoom])
 
   console.info({rooms});
@@ -83,26 +83,19 @@ function MessagePage({Api, userId}) {
           {database
             .filter(x => x.rid === currentRoom.rid)
             .map((x, index) =>
-            <div {...((index === database.length - 1) ? {ref: inputRef} : {})} className={`bubble`} key={index}>
+            <div {...((index === database.length - 1) ? {ref: lastRef} : {})} className={`bubble`} key={index}>
               {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
             </div>)
           }
         </div> : <div><em>No messges!</em></div>}
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          if (newMessage !== '') {
-            sendMessage()
+        <Form onSubmit={({input, setInput}) => {
+          if (input !== '') {
+            sendMessage(input)
+            setInput('')
           }
-        }} className=''>
+        }} theme='blue' submitName=''>
           Send
-          <hr/>
-          <input type='text' value={newMessage} className={`input`}  onChange={(e) => setNewMessage(e.target.value)}/>
-          <button type='submit' className={`bg-blue-500 rounded-full h-8 w-8 text-white text-center shadow hover:shadow-md`}>
-            <div className='mx-auto'>
-              <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
-            </div>
-          </button>
-        </form>
+        </Form>
       </div>
       <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' src={heart}/></a>
     </div>
