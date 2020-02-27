@@ -3,3 +3,47 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+.user-circle {
+  @apply bg-blue-600 w-8 h-8 rounded-full;
+}
+
+.body-section {
+  @apply shadow-md rounded bg-gray-200 m-4 p-4
+}
+
+.input {
+  @apply rounded shadow-sm block p-1 my-1 transition duration-500;
+}
+
+input:focus {
+  @apply outline-none shadow-xl;
+}
+
+input:hover {
+  @apply shadow-md;
+}
+
+.header {
+  @apply text-2xl p-4 bg-gray-300 border-b border-blue-500 shadow;
+}
+
+.button-blue {
+  @apply p-1 bg-blue-500 rounded-full text-white text-center shadow;
+}
+
+.button-blue:hover {
+  @apply shadow-md;
+}
+
+.button {
+  @apply rounded shadow block bg-white my-1 p-1;
+}
+
+.button:hover {
+  @apply shadow-xl;
+}
+
+.bubble {
+  @apply rounded shadow bg-white my-1 py-1 px-1;
+}

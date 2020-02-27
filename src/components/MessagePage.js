@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
-import Styles from './styles'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
-import heart from '../heart.svg'
+import heart from './icon/heart.svg'
+import send from './icon/up.svg'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
@@ -58,14 +58,14 @@ function MessagePage({Api, userId}) {
 
   return (
     <div className="h-screen">
-      <div className={`${Styles.header}`}>Messages <Link to='/'><span role='img' aria-label=''>💬</span></Link></div>
-      <div className={`${Styles.bodySection}`}>
+      <div className='header'>Messages <Link to='/'><span role='img' aria-label=''>💬</span></Link></div>
+      <div className={`body-section`}>
         Rooms
         {rooms.map((x, index) => {
           return (
             <div>
               <div
-                key={index} className={`${Styles.bubble} ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
+                key={index} className={`bubble ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
                 onClick={() => {
                   setCurrentRoom(x)
                 }}
@@ -77,13 +77,13 @@ function MessagePage({Api, userId}) {
         })}
         <Link to={`/createRoom/${params.userId}`}><span className='block text-blue-500'>Add +</span></Link>
       </div>
-      <div className={`${Styles.bodySection}`}>
+      <div className={`body-section`}>
         <div>Messages</div>
         {(database.filter(x => x.rid === currentRoom.rid).length > 0) ? <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
           {database
             .filter(x => x.rid === currentRoom.rid)
             .map((x, index) =>
-            <div {...((index === database.length - 1) ? {ref: inputRef} : {})} className={`${Styles.bubble}`} key={index}>
+            <div {...((index === database.length - 1) ? {ref: inputRef} : {})} className={`bubble`} key={index}>
               {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
             </div>)
           }
@@ -93,14 +93,18 @@ function MessagePage({Api, userId}) {
           if (newMessage !== '') {
             sendMessage()
           }
-        }}>
+        }} className=''>
           Send
           <hr/>
-          <input type='text' value={newMessage} className={`${Styles.input} w-full`}  onChange={(e) => setNewMessage(e.target.value)}/>
-          <button type='submit' className={`${Styles.button}`}>Send</button>
+          <input type='text' value={newMessage} className={`input`}  onChange={(e) => setNewMessage(e.target.value)}/>
+          <button type='submit' className={`bg-blue-500 rounded-full h-8 w-8 text-white text-center shadow hover:shadow-md`}>
+            <div className='mx-auto'>
+              <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
+            </div>
+          </button>
         </form>
       </div>
-      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img src={heart}/></a>
+      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' src={heart}/></a>
     </div>
   );
 }

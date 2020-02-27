@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Api from '../Api'
 import {Redirect} from 'react-router-dom'
-import Styles from './styles'
+import user from './icon/user.svg'
+import lock from './icon/lock.svg'
+
 
 function LoginPage() {
   const [username, setUsername] = useState('')
@@ -23,8 +25,8 @@ function LoginPage() {
 
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`${Styles.header}`}>Login</div>
-      <div className={`${Styles.bodySection}`}>
+      <div className={`header`}>Login</div>
+      <div className={`body-section`}>
         <form onSubmit={(e) => {
           e.preventDefault()
           console.log(users);
@@ -36,15 +38,17 @@ function LoginPage() {
           }
         }}>
           Username
-          <input type='text' placeholder='User Name' className={`${Styles.input}`} value={username} onChange={(e) => {
+          <div className='bg-blue-600 p-1 rounded-full w-10'><div className='user-circle'><img className='mx-auto pt-1' alt='' src={user}/></div></div>
+          <input type='text' placeholder='User Name' className={`input`} value={username} onChange={(e) => {
             setUsername(e.target.value)
           }}/>
           Passcode
-          <input type='text' placeholder='1234' className={`${Styles.input} w-32`} value={passcode} onChange={(e) => {
+          <div className='bg-blue-600 p-1 rounded-full w-10'><div className='user-circle'><img className='mx-auto pt-1' alt='' src={lock}/></div></div>
+          <input type='text' placeholder='1234' className={`input w-32`} value={passcode} onChange={(e) => {
             setPasscode(e.target.value)
           }}/>
           <hr/>
-          <button className={`${Styles.button}`} type='submit'>Login</button>
+          <button className={`button`} type='submit'>Login</button>
         </form>
       </div>
     </div>
