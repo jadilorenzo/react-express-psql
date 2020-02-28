@@ -24,7 +24,7 @@ const App = () => {
   }, [getUserId, window])
 
   return (
-    <div>
+    <div style={{filter: `hue-rotate(${false ? '180deg' : '0deg'})`, backgroundColor: 'ghostwhite'}}>
       <Router>
         <Switch>
           <Route exact path='/messages/:userId'>
