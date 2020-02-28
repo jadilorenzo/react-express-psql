@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Api from '../Api'
 import {Redirect} from 'react-router-dom'
-import user from './icon/user.svg'
-import lock from './icon/lock.svg'
-import Form from './Form'
+import user from '../components/icon/user.svg'
+import lock from '../components/icon/lock.svg'
+import Form from '../components/Form'
 
 
 function LoginPage() {

@@ -2,9 +2,9 @@ import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
-import Form from './Form.js'
-import heart from './icon/heart.svg'
-import send from './icon/up.svg'
+import Form from '../components/Form.js'
+import heart from '../components/icon/heart.svg'
+import send from '../components/icon/up.svg'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])

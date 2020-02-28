@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import send from './icon/up.svg'
 
-export default (props = {onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
+const Form = (props = {onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
   const [input, setInput] = useState()
 
   return (
@@ -33,3 +33,5 @@ export default (props = {onSubmit: console.log, type: 'text', theme: 'white', su
     </form>
   )
 };
+
+export default Form

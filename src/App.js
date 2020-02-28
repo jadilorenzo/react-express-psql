@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Api from './Api'
 
-import MessagePage from './components/MessagePage.js'
-import LoginPage from './components/LoginPage.js'
-import CreateRoomPage from './components/CreateRoomPage.js'
-import LandingPage from './components/LandingPage.js'
-import AboutPage from './components/AboutPage.js'
-import CreateUserPage from './components/CreateUserPage.js'
+import MessagePage from './pages/MessagePage.js'
+import LoginPage from './pages/LoginPage.js'
+import CreateRoomPage from './pages/CreateRoomPage.js'
+import LandingPage from './pages/LandingPage.js'
+import AboutPage from './pages/AboutPage.js'
+import CreateUserPage from './pages/CreateUserPage.js'
 
 
 const App = () => {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom'
 import Api from '../Api'
 import {v4} from 'uuid'
-import Form from './Form'
+import Form from '../components/Form'
 
 
 function CreateUserPage() {
