@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import Api from '../Api'
 import {Redirect, useParams} from 'react-router-dom'
 import {v4} from 'uuid'
+import Form from './Form'
 
 function CreateRoomPage() {
-  const [roomName, setRoomName] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [unaccessibleRooms, setUnaccessibleRooms] = useState([])
 
@@ -26,18 +26,12 @@ function CreateRoomPage() {
     <div className="h-screen w-screen bg-gray-100">
       <div className={`header`}>Create Room +</div>
       <div className={`body-section`}>
-        <form onSubmit={(e) => {
-          e.preventDefault()
+        <Form theme='white' submitName='Create' onSubmit={({input}) => {
           setRedirect(true)
-          Api.post('rooms', {rid: v4(), name: roomName, users: [params.userId]})
+          Api.post('rooms', {rid: v4(), name: input, users: [params.userId]})
         }}>
           Room Name
-          <input value={roomName} className={`input w-full`} onChange={(e) => {
-            setRoomName(e.target.value)
-          }}/>
-          <hr/>
-          <button className={`button`}>Create</button>
-        </form>
+        </Form>
       </div>
       <div className={`body-section`}>
         Join Existing Room...
