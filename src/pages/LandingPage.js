@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import login from './icon/login.svg'
-import menu from './icon/menu.svg'
-import userAdd from './icon/user-add.svg'
+import login from '../components/icon/login.svg'
+import menu from '../components/icon/menu.svg'
+import userAdd from '../components/icon/user-add.svg'
 
 function LandingPage() {
   return (

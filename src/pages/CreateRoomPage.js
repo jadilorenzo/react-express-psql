@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Api from '../Api'
 import {Redirect, useParams} from 'react-router-dom'
 import {v4} from 'uuid'
-import Form from './Form'
+import Form from '../components/Form'
 
 function CreateRoomPage() {
   const [redirect, setRedirect] = useState(false)

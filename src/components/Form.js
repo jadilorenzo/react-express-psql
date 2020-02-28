@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import send from './icon/up.svg'
+import PropTypes from 'prop-types';
 
-export default (props = {onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
+const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
   const [input, setInput] = useState()
 
   return (
@@ -33,3 +34,13 @@ export default (props = {onSubmit: console.log, type: 'text', theme: 'white', su
     </form>
   )
 };
+
+Form.propTypes = {
+  type: PropTypes.oneOf(['text', 'password', 'name']).isRequired,
+  onSubmit: PropTypes.func,
+  theme: PropTypes.string.isRequired,
+  submitName: PropTypes.string.isRequired,
+  onChange: PropTypes.func
+}
+
+export default Form
