@@ -9,7 +9,7 @@ function LandingPage() {
   return (
     <div className="h-screen w-screen bg-gray-100">
       <Header>
-        Messgaes
+        Messages
       </Header>
       <div className='block'>
         {/*<div className={`body-section  h-full text-center`}>
