@@ -8,7 +8,7 @@ import CreateRoomPage from './components/CreateRoomPage.js'
 import LandingPage from './components/LandingPage.js'
 import AboutPage from './components/AboutPage.js'
 import CreateUserPage from './components/CreateUserPage.js'
-
+const dark = false
 
 const App = () => {
   const getUserId = () => {
@@ -24,7 +24,7 @@ const App = () => {
   }, [getUserId, window])
 
   return (
-    <div style={{filter: `hue-rotate(${false ? '180deg' : '0deg'})`, backgroundColor: 'ghostwhite'}}>
+    <div style={{filter: `hue-rotate(${dark ? '180deg' : '0deg'}) brightness(${dark ? '90%' : '100%'})`, backgroundColor: !dark ? 'ghostwhite' : 'darkgray'}}>
       <Router>
         <Switch>
           <Route exact path='/messages/:userId'>
