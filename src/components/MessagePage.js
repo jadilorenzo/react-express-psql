@@ -2,8 +2,11 @@ import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
+import Header from './Header'
 import heart from './icon/heart.svg'
 import send from './icon/up.svg'
+import Logout from './icon/logout.svg'
+
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
@@ -58,7 +61,10 @@ function MessagePage({Api, userId}) {
 
   return (
     <div className="h-screen">
-      <div className='header'>Messages <Link to='/'><span role='img' aria-label=''>💬</span></Link></div>
+      <Header>
+        Messages
+        <span className='float-right pt-2'><img src={Logout}/></span>
+      </Header>
       <div className={`body-section`}>
         Rooms
         {rooms.map((x, index) => {

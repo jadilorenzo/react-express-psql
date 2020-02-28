@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Api from '../Api'
 import {Redirect, useParams} from 'react-router-dom'
 import {v4} from 'uuid'
+import Header from './Header'
+
 
 function CreateRoomPage() {
   const [roomName, setRoomName] = useState('')
@@ -24,7 +26,9 @@ function CreateRoomPage() {
 
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`header`}>Create Room +</div>
+      <Header>
+        Create Room +
+      </Header>
       <div className={`body-section`}>
         <form onSubmit={(e) => {
           e.preventDefault()

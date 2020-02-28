@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import Header from './Header'
 import login from './icon/login.svg'
 import menu from './icon/menu.svg'
 import userAdd from './icon/user-add.svg'
@@ -7,7 +8,9 @@ import userAdd from './icon/user-add.svg'
 function LandingPage() {
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className='header'>Messages <Link to='/'>💬</Link></div>
+      <Header>
+        Messages
+      </Header>
       <div className='block'>
         {/*<div className={`body-section  h-full text-center`}>
           <div className=''>Chat</div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import Header from './Header'
 import react from './icon/react.svg'
 import tailwind from './icon/tailwind.svg'
 import postgres from './icon/postgres.png'
@@ -7,7 +8,9 @@ import postgres from './icon/postgres.png'
 function AboutPage() {
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`header`}>Messages</div>
+      <Header>
+        Resources
+      </Header>
       <div className='block md:flex'>
         <div className={`body-section md:w-1/3`}>
           <div className=''>
