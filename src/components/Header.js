@@ -5,7 +5,7 @@ export default (props) => {
   return (
     <Link to='/'>
       <div className='header'>
-        <span aria-label='' role='img'>{props.children}</span>
+        <span>{props.children}</span>
       </div>
     </Link>
   )
