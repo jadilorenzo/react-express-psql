@@ -2,11 +2,7 @@ import React, {useState} from 'react'
 import send from './icon/up.svg'
 import PropTypes from 'prop-types';
 
-<<<<<<< HEAD
 const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text', button: 'white', submitName: 'Submit'}) => {
-=======
-const Form = (props = {onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
->>>>>>> 02c62353654f1337964797c019f9b033f6f68b41
   const [input, setInput] = useState()
 
   let button = <div/>
@@ -46,7 +42,6 @@ const Form = (props = {onSubmit: console.log, type: 'text', theme: 'white', subm
   )
 };
 
-<<<<<<< HEAD
 Form.propTypes = {
   type: PropTypes.oneOf(['text', 'password', 'name']),
   onSubmit: PropTypes.func,
@@ -55,6 +50,4 @@ Form.propTypes = {
   onChange: PropTypes.func
 }
 
-=======
->>>>>>> 02c62353654f1337964797c019f9b033f6f68b41
 export default Form
