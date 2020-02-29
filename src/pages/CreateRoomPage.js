@@ -16,7 +16,7 @@ function CreateRoomPage() {
       const filteredRooms = rooms.filter(room => !(JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)))
       setUnaccessibleRooms(filteredRooms)
     })
-  }, [])
+  }, [params.userId])
 
   if (redirect) {
     return <Redirect to={`/messages/${params.userId}`}/>

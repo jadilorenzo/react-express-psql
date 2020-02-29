@@ -21,18 +21,18 @@ function LandingPage() {
             <div className={`body-section transition duration-500 ease-in-out hover:shadow-xl`}>
               Login
               <span className='_md:hidden float-right' role='img' aria-label=''>
-                <img className='h-5 mr-1' src={login}/>
+                <img alt='' className='h-5 mr-1' src={login}/>
               </span>
             </div>
           </Link>
           <Link to='/create-user'>
             <div className={`body-section transition duration-500 ease-in-out hover:shadow-xl`}>
-              Create User <span className='_md:hidden float-right' role='img' aria-label=''><img className='h-5 mt-1' src={userAdd}/></span>
+              Create User <span className='_md:hidden float-right' role='img' aria-label=''><img alt='' className='h-5 mt-1' src={userAdd}/></span>
             </div>
           </Link>
           <Link to='/about'>
             <div className={`body-section transition duration-500 ease-in-out hover:shadow-xl align-middle `}>
-              About <span className='_md:hidden float-right -my-1' role='img' aria-label=''><img className='h-4 mt-2 mr-1' src={menu}/></span>
+              About <span className='_md:hidden float-right -my-1' role='img' aria-label=''><img alt='' className='h-4 mt-2 mr-1' src={menu}/></span>
             </div>
           </Link>
         </div>

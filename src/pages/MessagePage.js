@@ -1,17 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
 import Header from '../components/Header'
 import Form from '../components/Form'
 import heart from '../components/icon/heart.svg'
-import send from '../components/icon/up.svg'
 import Logout from '../components/icon/logout.svg'
 
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
-  const [newMessage, setNewMessage] = useState('')
   const [rooms, setRooms] = useState([])
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
@@ -54,7 +52,7 @@ function MessagePage({Api, userId}) {
 
   useEffect(() => {
     scrollIntoView(lastRef.current, {time: 0})
-  }, [database, rooms, newMessage, currentRoom])
+  }, [database, rooms, currentRoom, lastRef])
 
   console.info({rooms});
   console.info({currentRoom})
@@ -63,13 +61,13 @@ function MessagePage({Api, userId}) {
     <div className="h-screen">
       <Header>
         Messages
-        <span className='float-right pt-2'><img src={Logout}/></span>
+        <span className='float-right pt-2'><img alt='' src={Logout}/></span>
       </Header>
       <div className={`body-section`}>
         Rooms
         {rooms.map((x, index) => {
           return (
-            <div>
+            <div key={index}>
               <div
                 key={index} className={`bubble ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
                 onClick={() => {
@@ -89,7 +87,7 @@ function MessagePage({Api, userId}) {
           {database
             .filter(x => x.rid === currentRoom.rid)
             .map((x, index) =>
-            <div {...((index === database.length - 1) ? {ref: lastRef} : {})} className={`bubble`} key={index}>
+            <div ref={(index === database.filter(x => x.rid === currentRoom.rid).length - 1) ? lastRef : React.createRef()} className={`bubble`} key={index}>
               {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
             </div>)
           }
@@ -103,7 +101,7 @@ function MessagePage({Api, userId}) {
           Send
         </Form>
       </div>
-      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' src={heart}/></a>
+      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank'  rel="noopener noreferrer" className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' alt='' src={heart}/></a>
     </div>
   );
 }

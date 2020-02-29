@@ -9,7 +9,6 @@ function CreateUserPage() {
   const [redirect, setRedirect] = useState(false)
   const [uuid, setUuid] = useState('')
   const [username, setUsername] = useState('New User Name')
-  const [showWarning, setShowWarning] = useState(false)
 
 
   if (redirect) {

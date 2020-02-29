@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import Api from './Api'
-
 import MessagePage from './pages/MessagePage.js'
 import LoginPage from './pages/LoginPage.js'
 import CreateRoomPage from './pages/CreateRoomPage.js'
@@ -11,17 +10,18 @@ import CreateUserPage from './pages/CreateUserPage.js'
 
 
 const App = () => {
-  const getUserId = () => {
-    if (window.localStorage.getItem('userId') !== undefined) {
-      return window.localStorage.getItem('userId')
+  const userId = window.localStorage.getItem('userId')
+  const getUserId = useCallback(() => {
+    if (userId !== undefined) {
+      return userId
     } else {
       return ''
     }
-  }
+  }, [userId])
 
   useEffect(() => {
     window.localStorage.setItem('userId', getUserId())
-  }, [getUserId, window])
+  }, [getUserId])
 
   return (
     <div>
