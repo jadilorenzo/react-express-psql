@@ -3,10 +3,10 @@ import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
 import Header from '../components/Header'
-import Form from '../compoents/Form'
-import heart from './icon/heart.svg'
-import send from './icon/up.svg'
-import Logout from './icon/logout.svg'
+import Form from '../components/Form'
+import heart from '../components/icon/heart.svg'
+import send from '../components/icon/up.svg'
+import Logout from '../components/icon/logout.svg'
 
 
 function MessagePage({Api, userId}) {

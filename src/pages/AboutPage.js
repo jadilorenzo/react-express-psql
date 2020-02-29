@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Header from './Header'
-import react from './icon/react.svg'
-import tailwind from './icon/tailwind.svg'
-import postgres from './icon/postgres.png'
+import Header from '../components/Header'
+import react from '../components/icon/react.svg'
+import tailwind from '../components/icon/tailwind.svg'
+import postgres from '../components/icon/postgres.png'
 
 function AboutPage() {
   return (

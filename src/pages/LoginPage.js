@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Api from '../Api'
-import Header from './Header'
+import Header from '../components/Header'
 import {Redirect} from 'react-router-dom'
 import user from '../components/icon/user.svg'
 import lock from '../components/icon/lock.svg'
