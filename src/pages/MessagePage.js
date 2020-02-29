@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
-import Header from '../compoents/Header'
+import Header from '../components/Header'
 import Form from '../compoents/Form'
 import heart from './icon/heart.svg'
 import send from './icon/up.svg'
