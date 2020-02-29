@@ -3,6 +3,7 @@ import Api from '../Api'
 import {Redirect, useParams} from 'react-router-dom'
 import {v4} from 'uuid'
 import Form from '../components/Form'
+import Header from '../components/Header'
 
 function CreateRoomPage() {
   const [redirect, setRedirect] = useState(false)
@@ -24,7 +25,9 @@ function CreateRoomPage() {
 
   return (
     <div className="h-screen w-screen bg-gray-100">
-      <div className={`header`}>Create Room +</div>
+      <Header>
+        Create Room +
+      </Header>
       <div className={`body-section`}>
         <Form button='white' submitName='Create' onSubmit={({input}) => {
           setRedirect(true)
