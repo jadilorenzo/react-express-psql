@@ -2,8 +2,25 @@ import React, {useState} from 'react'
 import send from './icon/up.svg'
 import PropTypes from 'prop-types';
 
-const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text', theme: 'white', submitName: 'Submit'}) => {
+const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text', button: 'white', submitName: 'Submit'}) => {
   const [input, setInput] = useState()
+
+  let button = <div/>
+  if (props.button === 'blue') {
+    button = (
+      <button type='submit' className={`bg-blue-500 rounded-full h-8 w-8 text-white text-center shadow hover:shadow-md`}>
+        <div className='mx-auto'>
+          <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
+        </div>
+      </button>
+    )
+  } else if (props.button === 'white') {
+    button = (
+      <button className={`button`}>{props.submitName}</button>
+    )
+  } else {
+    button = <div/>
+  }
 
   return (
     <form onSubmit={(e) => {
@@ -20,25 +37,15 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
           }
         }
       }/>
-      {(props.theme === 'blue') ? (
-        <button type='submit' className={`bg-blue-500 rounded-full h-8 w-8 text-white text-center shadow hover:shadow-md`}>
-          <div className='mx-auto'>
-            <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
-          </div>
-        </button>
-      ) : (props.submitName !== 'none') ? (
-        <button className={`button`}>{props.submitName}</button>
-      ) : (
-        <div/>
-      )}
+    {button}
     </form>
   )
 };
 
 Form.propTypes = {
-  type: PropTypes.oneOf(['text', 'password', 'name']).isRequired,
+  type: PropTypes.oneOf(['text', 'password', 'name']),
   onSubmit: PropTypes.func,
-  theme: PropTypes.string.isRequired,
+  button: PropTypes.string,
   submitName: PropTypes.string.isRequired,
   onChange: PropTypes.func
 }

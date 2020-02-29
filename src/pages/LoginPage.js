@@ -39,7 +39,7 @@ function LoginPage() {
 
         <Form onChange={(input) => {
           setUsername(input)
-        }} theme='' type='text' submitName='none'>
+        }} button='none' type='text' submitName='none'>
           Username
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>
@@ -54,7 +54,7 @@ function LoginPage() {
             window.localStorage.setItem('userId', userId)
             setRedirect(true)
           }
-        }} theme='' type='password' submitName='Login'>
+        }} button='white' type='password' submitName='Login'>
           Passcode
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>

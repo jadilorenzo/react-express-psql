@@ -93,7 +93,7 @@ function MessagePage({Api, userId}) {
             sendMessage(input)
             setInput('')
           }
-        }} theme='blue' submitName=''>
+        }} button='blue' submitName=''>
           Send
         </Form>
       </div>

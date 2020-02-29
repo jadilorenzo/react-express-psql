@@ -26,7 +26,7 @@ function CreateRoomPage() {
     <div className="h-screen w-screen bg-gray-100">
       <div className={`header`}>Create Room +</div>
       <div className={`body-section`}>
-        <Form theme='white' submitName='Create' onSubmit={({input}) => {
+        <Form button='white' submitName='Create' onSubmit={({input}) => {
           setRedirect(true)
           Api.post('rooms', {rid: v4(), name: input, users: [params.userId]})
         }}>

@@ -22,7 +22,7 @@ function CreateUserPage() {
       <div className={`body-section`}>
         <Form onMessage={(input) => {
           setUsername(input)
-        }} theme='none' submitName='none' type='name'>
+        }} button='none' submitName='none' type='name'>
           Username
         </Form>
         <Form onSubmit={({input}) => {
@@ -30,7 +30,7 @@ function CreateUserPage() {
           Api.post('users', {uid, name: username, passcode: Number.parseFloat(input)})
           setUuid(uid)
           setRedirect(true)
-        }} theme='white' submitName='Create' type='password'>
+        }} button='white' submitName='Create' type='password'>
           Four Digit Passcode
         </Form>
       </div>
