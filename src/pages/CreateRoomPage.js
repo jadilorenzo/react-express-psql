@@ -11,6 +11,23 @@ function CreateRoomPage() {
 
   const params = useParams();
 
+  const submitCreateRoom = ({ input }) => {
+    setRedirect(true);
+    Api.post('rooms', { rid: v4(), name: input, users: [params.userId] });
+  }
+
+  const displayUnaccessibleRooms = unaccessibleRooms.map((x) => (
+    <div
+      onClick={() => {
+        Api.post('roomAddPerson', { users: [...JSON.parse(x.users.replace('{', '[').replace('}', ']')), params.userId], rid: x.rid });
+        setRedirect(true);
+      }}
+      className="bubble transition duration-500 ease-in-out hover:shadow-md"
+    >
+      {x.name}
+    </div>
+  ))
+
   useEffect(() => {
     Api.get('rooms').then(({ rooms }) => {
       const filteredRooms = rooms.filter((room) => !(JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)));
@@ -22,8 +39,6 @@ function CreateRoomPage() {
     return <Redirect to={`/messages/${params.userId}`} />;
   }
 
-  console.log(unaccessibleRooms);
-
   return (
     <div className="h-screen w-screen bg-gray-100">
       <Header>
@@ -33,27 +48,14 @@ function CreateRoomPage() {
         <Form
           button="white"
           submitName="Create"
-          onSubmit={({ input }) => {
-            setRedirect(true);
-            Api.post('rooms', { rid: v4(), name: input, users: [params.userId] });
-          }}
+          onSubmit={submitCreateRoom}
         >
           Room Name
         </Form>
       </div>
       <div className="body-section">
         Join Existing Room...
-        {unaccessibleRooms.map((x) => (
-          <div
-            onClick={() => {
-              Api.post('roomAddPerson', { users: [...JSON.parse(x.users.replace('{', '[').replace('}', ']')), params.userId], rid: x.rid });
-              setRedirect(true);
-            }}
-            className="bubble transition duration-500 ease-in-out hover:shadow-md"
-          >
-            {x.name}
-          </div>
-        ))}
+        {displayUnaccessibleRooms}
       </div>
     </div>
   );

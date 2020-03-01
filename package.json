@@ -22,6 +22,7 @@
     "scroll-into-view": "^1.14.1",
     "tailwindcss": "^1.2.0",
     "tailwindscss": "^0.3.0",
+    "tapable": "^1.1.3",
     "uuid": "^3.4.0",
     "write-json-file": "^4.3.0"
   },
