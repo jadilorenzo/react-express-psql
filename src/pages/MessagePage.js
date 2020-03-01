@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
+import PropTypes from 'prop-types'
 import Header from '../components/Header'
 import Form from '../components/Form'
 import heart from '../components/icon/heart.svg'
@@ -105,6 +106,9 @@ function MessagePage({Api, userId}) {
     </div>
   );
 }
-//
+MessagePage.propTypes = {
+  userId: PropTypes.string,
+  Api: PropTypes.any
+}
 
 export default MessagePage;
