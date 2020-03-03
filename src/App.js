@@ -7,7 +7,7 @@ import CreateRoomPage from './pages/CreateRoomPage.js'
 import LandingPage from './pages/LandingPage.js'
 import AboutPage from './pages/AboutPage.js'
 import CreateUserPage from './pages/CreateUserPage.js'
-
+import {DARK_THEME} from './Theme'
 
 const App = () => {
   const userId = window.localStorage.getItem('userId')
@@ -24,7 +24,7 @@ const App = () => {
   }, [getUserId])
 
   return (
-    <div>
+    <div style={/* {filter: `hue-rotate(${dark ? '180deg' : '0deg'}) brightness(${dark ? '90%' : '100%'})`, backgroundColor: !dark ? 'ghostwhite' : 'darkgray'} */}>
       <Router>
         <Switch>
           <Route exact path='/messages/:userId'>
