@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
-export default (props) => {
+const Header = (props) => {
   return (
     <Link to='/'>
       <div className='header'>
@@ -10,3 +11,11 @@ export default (props) => {
     </Link>
   )
 }
+
+Header.propTypes = {
+  children: PropTypes.any
+}
+
+
+
+export default Header;

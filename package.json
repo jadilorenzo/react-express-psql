@@ -2,7 +2,7 @@
   "name": "react-chatkit-",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://github.io/mySite",
+  "homepage": "http://github.io/mySite",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -13,6 +13,7 @@
     "isomorphic-fetch": "^2.2.1",
     "load-json-file": "^6.2.0",
     "pg": "^7.18.1",
+    "prop-types": "^15.7.2",
     "psqljs": "^0.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -46,5 +47,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0"
   }
 }

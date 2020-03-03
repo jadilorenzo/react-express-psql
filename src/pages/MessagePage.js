@@ -1,21 +1,21 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {v4} from 'uuid'
 import {Link, useParams} from 'react-router-dom'
 import scrollIntoView from 'scroll-into-view'
-import Header from './Header'
-import heart from './icon/heart.svg'
-import send from './icon/up.svg'
-import Logout from './icon/logout.svg'
+import PropTypes from 'prop-types'
+import Header from '../components/Header'
+import Form from '../components/Form'
+import heart from '../components/icon/heart.svg'
+import Logout from '../components/icon/logout.svg'
 
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
-  const [newMessage, setNewMessage] = useState('')
   const [rooms, setRooms] = useState([])
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
   const params = useParams()
-  const inputRef = React.createRef()
+  const lastRef = React.createRef()
 
   const getAll = () => {
     Api.get('users').then((r) => {
@@ -40,10 +40,9 @@ function MessagePage({Api, userId}) {
     })
   }
 
-  const sendMessage = () => {
-    if (newMessage !== '') {
-      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: newMessage}).then(getAll)
-      setNewMessage('')
+  const sendMessage = (input) => {
+    if (input !== '') {
+      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: input}).then(getAll)
       getAll()
     }
   }
@@ -53,8 +52,8 @@ function MessagePage({Api, userId}) {
   }, [Api, userId])
 
   useEffect(() => {
-    scrollIntoView(inputRef.current, {time: 0})
-  }, [database, rooms, newMessage, currentRoom])
+    scrollIntoView(lastRef.current, {time: 0})
+  }, [database, rooms, currentRoom, lastRef])
 
   console.info({rooms});
   console.info({currentRoom})
@@ -63,13 +62,13 @@ function MessagePage({Api, userId}) {
     <div className="h-screen">
       <Header>
         Messages
-        <span className='float-right pt-2'><img src={Logout}/></span>
+        <span className='float-right pt-2'><img alt='' src={Logout}/></span>
       </Header>
       <div className={`body-section`}>
         Rooms
         {rooms.map((x, index) => {
           return (
-            <div>
+            <div key={index}>
               <div
                 key={index} className={`bubble ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
                 onClick={() => {
@@ -89,31 +88,27 @@ function MessagePage({Api, userId}) {
           {database
             .filter(x => x.rid === currentRoom.rid)
             .map((x, index) =>
-            <div {...((index === database.length - 1) ? {ref: inputRef} : {})} className={`bubble`} key={index}>
+            <div ref={(index === database.filter(x => x.rid === currentRoom.rid).length - 1) ? lastRef : React.createRef()} className={`bubble`} key={index}>
               {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
             </div>)
           }
         </div> : <div><em>No messges!</em></div>}
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          if (newMessage !== '') {
-            sendMessage()
+        <Form onSubmit={({input, setInput}) => {
+          if (input !== '') {
+            sendMessage(input)
+            setInput('')
           }
-        }} className=''>
+        }} button='blue' submitName=''>
           Send
-          <hr/>
-          <input type='text' value={newMessage} className={`input`}  onChange={(e) => setNewMessage(e.target.value)}/>
-          <button type='submit' className={`bg-blue-500 rounded-full h-8 w-8 text-white text-center shadow hover:shadow-md`}>
-            <div className='mx-auto'>
-              <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
-            </div>
-          </button>
-        </form>
+        </Form>
       </div>
-      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank' className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' src={heart}/></a>
+      <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank'  rel="noopener noreferrer" className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' alt='' src={heart}/></a>
     </div>
   );
 }
-//
+MessagePage.propTypes = {
+  userId: PropTypes.string,
+  Api: PropTypes.any
+}
 
 export default MessagePage;
