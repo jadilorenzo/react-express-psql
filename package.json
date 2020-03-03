@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "isomorphic-fetch": "^2.2.1",
     "load-json-file": "^6.2.0",
+    "onchange": "^6.1.0",
     "pg": "^7.18.1",
     "prop-types": "^15.7.2",
     "psqljs": "^0.0.6",
@@ -26,7 +27,7 @@
     "write-json-file": "^4.3.0"
   },
   "scripts": {
-    "style": "tailwindcss build public/styles.css -o public/output.css",
+    "style": "onchange 'public/styles.css' -- tailwindcss build public/styles.css -o public/output.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

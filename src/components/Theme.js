@@ -1,4 +1,4 @@
-const DARK_THEME = {
+const darkTheme = {
   filters: {
     primary: 'hue-rotate(180deg)'
   },
@@ -7,4 +7,4 @@ const DARK_THEME = {
   }
 }
 
-export DARK_THEME
+export default {darkTheme};
