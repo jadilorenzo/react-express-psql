@@ -27,11 +27,9 @@ function MessagePage({Api, userId}) {
       })
     })
     Api.get('rooms').then(({rooms}) => {
-      console.info({allRooms: rooms});
       const accessibleRooms = rooms.filter(room => {
         return JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
       })
-      console.info('accessibleRooms', accessibleRooms);
       setRooms(accessibleRooms)
       if (currentRoom.rid === undefined){
         setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
@@ -55,8 +53,6 @@ function MessagePage({Api, userId}) {
     scrollIntoView(lastRef.current, {time: 0})
   }, [database, rooms, currentRoom, lastRef])
 
-  console.info({rooms});
-  console.info({currentRoom})
 
   return (
     <div className="h-screen">
