@@ -30,9 +30,7 @@ function LoginPage() {
         Login
       </Header>
       <div className={`body-section`}>
-        <Form onChange={(input) => {
-          setUsername(input)
-        }} button='none' type='text' submitName='none'>
+        <Form onChange={setUsername} button='none' type='text' submitName='none'>
           Username
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>

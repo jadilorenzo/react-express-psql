@@ -12,10 +12,6 @@ function LandingPage() {
         Messages
       </Header>
       <div className='block'>
-        {/*<div className={`body-section  h-full text-center`}>
-          <div className=''>Chat</div>
-          <div className='text-center' style={{fontSize: '100px'}}>💬</div>
-        </div>*/}
         <div className=''>
           <Link to='/login'>
             <div className={`body-section transition duration-500 ease-in-out hover:shadow-xl`}>
