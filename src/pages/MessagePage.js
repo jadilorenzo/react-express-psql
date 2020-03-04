@@ -55,6 +55,31 @@ function MessagePage({Api, userId}) {
     scrollIntoView(lastRef.current, {time: 0})
   }, [database, rooms, currentRoom, lastRef])
 
+  const displayRooms = rooms.map((x, index) => {
+    return (
+      <div key={index}>
+        <div
+          key={index} className={`bubble ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
+          onClick={() => {
+            setCurrentRoom(x)
+          }}
+        >
+          {x.name}
+        </div>
+      </div>
+    )
+  })
+
+  const displayMessages = (getDisplayMessages(database, allUsers, currentRoom) !== 0) ? (
+    <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
+      {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
+        <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
+          {message.name}: {message.message}
+        </div>
+      )}
+    </div>
+  ) : <div>No Messages!</div>
+
 
   return (
     <div className="h-screen">
@@ -64,34 +89,12 @@ function MessagePage({Api, userId}) {
       </Header>
       <div className={`body-section`}>
         Rooms
-        {rooms.map((x, index) => {
-          return (
-            <div key={index}>
-              <div
-                key={index} className={`bubble ${(x.rid === currentRoom.rid) ? 'border-b border-blue-500' : ''}`}
-                onClick={() => {
-                  setCurrentRoom(x)
-                }}
-              >
-                {x.name}
-              </div>
-            </div>
-          )
-        })}
+        {displayRooms}
         <Link to={`/createRoom/${params.userId}`}><span className='block text-blue-500'>Add +</span></Link>
       </div>
       <div className={`body-section`}>
         <div>Messages</div>
-        {(getDisplayMessages(database, allUsers, currentRoom) !== 0) ? (
-          <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
-            {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
-              <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
-                {message.name}: {message.message}
-              </div>
-            )}
-          </div>
-        ) : <div>No Messages!</div>
-        }
+        {displayMessages}
         <Form onSubmit={({input, setInput}) => {
           if (input !== '') {
             sendMessage(input)
