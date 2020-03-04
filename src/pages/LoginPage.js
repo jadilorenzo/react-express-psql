@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom'
 import user from '../components/icon/user.svg'
 import lock from '../components/icon/lock.svg'
 import Form from '../components/Form'
+import getUser from './GetUser'
 
 
 function LoginPage() {
@@ -29,17 +30,6 @@ function LoginPage() {
         Login
       </Header>
       <div className={`body-section`}>
-        <form onSubmit={(e) => {
-          e.preventDefault()
-          console.log(users);
-          if (users.filter(x => (x.name === username && x.passcode === Number.parseFloat(passcode))).length > 0) {
-            const userId = users.filter(x => x.name === username && x.passcode === Number.parseFloat(passcode))[0].uid
-            console.log(userId);
-            window.localStorage.setItem('userId', userId)
-            setRedirect(true)
-          }
-        }}/>
-
         <Form onChange={(input) => {
           setUsername(input)
         }} button='none' type='text' submitName='none'>
@@ -52,8 +42,8 @@ function LoginPage() {
         </Form>
         <Form onSubmit={({input, setInput}) => {
           setPasscode(input)
-          if (users.filter(x => (x.name === username && x.passcode === Number.parseFloat(input))).length > 0) {
-            const userId = users.filter(x => x.name === username && x.passcode === Number.parseFloat(input))[0].uid
+          if (getUser(users, username, input).length !== 0) {
+            const userId = getUser(users, username, input)[0].uid
             window.localStorage.setItem('userId', userId)
             setRedirect(true)
           }
