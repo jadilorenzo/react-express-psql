@@ -4,6 +4,7 @@ import { v4 } from 'uuid';
 import Api from '../Api';
 import Form from '../components/Form';
 import Header from '../components/Header';
+import getAccessibleRooms from '../methods/GetAccessibleRooms'
 
 function CreateRoomPage() {
   const [redirect, setRedirect] = useState(false);
@@ -13,7 +14,7 @@ function CreateRoomPage() {
 
   useEffect(() => {
     Api.get('rooms').then(({ rooms }) => {
-      const filteredRooms = rooms.filter((room) => !(JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)));
+      const filteredRooms = getAccessibleRooms(rooms, params.userId)
       setUnaccessibleRooms(filteredRooms);
     });
   }, [params.userId]);
@@ -21,7 +22,7 @@ function CreateRoomPage() {
   if (redirect) {
     return <Redirect to={`/messages/${params.userId}`} />;
   }
-  
+
   return (
     <div className="h-screen w-screen bg-gray-100">
       <Header>

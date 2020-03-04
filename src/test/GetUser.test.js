@@ -1,4 +1,4 @@
-import GetUser from './GetUser'
+import GetUser from '../methods/GetUser'
 
 it('grabs correct user', () => {
   expect(GetUser([{passcode: 3.14, name: 'Pi'}], 'Pi', '3.14').length > 0).toBe(true)

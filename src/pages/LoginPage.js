@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom'
 import user from '../components/icon/user.svg'
 import lock from '../components/icon/lock.svg'
 import Form from '../components/Form'
-import getUser from './GetUser'
+import getUser from '../methods/GetUser'
 
 
 function LoginPage() {
