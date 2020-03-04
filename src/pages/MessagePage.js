@@ -7,6 +7,8 @@ import Header from '../components/Header'
 import Form from '../components/Form'
 import heart from '../components/icon/heart.svg'
 import Logout from '../components/icon/logout.svg'
+import getAccessibleRooms from '../methods/GetAccessibleRooms'
+import getDisplayMessages from '../methods/GetDisplayMessages'
 
 
 function MessagePage({Api, userId}) {
@@ -80,15 +82,16 @@ function MessagePage({Api, userId}) {
       </div>
       <div className={`body-section`}>
         <div>Messages</div>
-        {(database.filter(x => x.rid === currentRoom.rid).length > 0) ? <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
-          {database
-            .filter(x => x.rid === currentRoom.rid)
-            .map((x, index) =>
-            <div ref={(index === database.filter(x => x.rid === currentRoom.rid).length - 1) ? lastRef : React.createRef()} className={`bubble`} key={index}>
-              {allUsers.filter(y => y.uid === x.uid)[0].name}: {x.message}
-            </div>)
-          }
-        </div> : <div><em>No messges!</em></div>}
+        {(getDisplayMessages(database, allUsers, currentRoom) !== 0) ? (
+          <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
+            {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
+              <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
+                {message.name}: {message.message}
+              </div>
+            )}
+          </div>
+        ) : <div>No Messages!</div>
+        }
         <Form onSubmit={({input, setInput}) => {
           if (input !== '') {
             sendMessage(input)
