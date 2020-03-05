@@ -28,7 +28,6 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
       props.onSubmit({input, setInput})
     }} className=''>
       {props.children}
-      <hr/>
       <input type={props.type} value={input} className={`input`}  onChange={(e) => {
           if (props.onChange === undefined) {
             setInput(e.target.value)
@@ -37,7 +36,7 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
           }
         }
       }/>
-    {button}
+      <div>{button}</div>
     </form>
   )
 };

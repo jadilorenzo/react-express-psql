@@ -31,7 +31,7 @@ function LoginPage() {
       </Header>
       <div className={`body-section`}>
         <Form onChange={setUsername} button='none' type='text' submitName='none'>
-          Username
+          Username<br/>
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>
               <img className='mx-auto pt-1' alt='' src={user}/>
@@ -46,7 +46,7 @@ function LoginPage() {
             setRedirect(true)
           }
         }} button='white' type='password' submitName='Login'>
-          Passcode
+          Passcode<br/>
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>
               <img className='mx-auto pt-1' alt='' src={lock}/>

@@ -30,7 +30,7 @@ function CreateUserPage() {
           setUuid(uid)
           setRedirect(true)
         }} button='white' submitName='Create' type='password'>
-          Four Digit Passcode
+          Four Digit Passcode<br/>
         </Form>
       </div>
     </div>

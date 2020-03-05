@@ -13,7 +13,7 @@
 }
 
 .input {
-  @apply rounded shadow-sm block p-1 my-1 transition duration-500;
+  @apply rounded shadow-sm p-1 my-1 transition duration-500;
 }
 
 input:focus {
@@ -46,4 +46,8 @@ input:hover {
 
 .bubble {
   @apply rounded shadow bg-white my-1 py-1 px-1;
+}
+
+input {
+  display: inline;
 }

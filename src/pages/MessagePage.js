@@ -16,6 +16,7 @@ function MessagePage({Api, userId}) {
   const [rooms, setRooms] = useState([])
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
+  const [reaction, setReaction] = useState('')
   const params = useParams()
   const lastRef = React.createRef()
 
@@ -40,10 +41,9 @@ function MessagePage({Api, userId}) {
     })
   }
 
-  const sendMessage = (input) => {
+  const sendMessage = (input, reaction) => {
     if (input !== '') {
-      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: input}).then(getAll)
-      getAll()
+      Api.post('messages', {mid: v4(), uid: params.userId, rid: currentRoom.rid, message: input, reaction}).then(getAll)
     }
   }
 
@@ -74,7 +74,7 @@ function MessagePage({Api, userId}) {
     <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
       {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
         <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
-          {message.name}: {message.message}
+          {message.name}: {message.message} { message.message !== null ? <span className='px-1 font-bold' style={{float: 'right'}}>{message.reaction}</span> : <span className='font-bold'>{message.reaction}</span> }
         </div>
       )}
     </div>
@@ -95,14 +95,19 @@ function MessagePage({Api, userId}) {
       <div className={`body-section`}>
         <div>Messages</div>
         {displayMessages}
-        <Form onSubmit={({input, setInput}) => {
+        <Form onSubmit={({input, setInput, setReactionInput}) => {
           if (input !== '') {
-            sendMessage(input)
+            sendMessage(input, reaction)
             setInput('')
+            setReaction('')
           }
-        }} button='blue' submitName=''>
-          Send
+        }}  button='blue' submitName=''>
+          <div>Send</div>
+          <input className='input w-8 mr-1' value={reaction} maxlength="3" placeholder=':)' onChange={(e) => {
+            setReaction(e.target.value)
+          }}/>
         </Form>
+
       </div>
       <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank'  rel="noopener noreferrer" className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' alt='' src={heart}/></a>
     </div>
