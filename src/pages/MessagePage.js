@@ -105,10 +105,11 @@ function MessagePage({Api, userId}) {
           }
         }}  button='blue' submitName=''>
           <div>Send</div>
-          <input className='input w-8 mr-1' value={reaction} maxlength="3" placeholder=':)' onChange={(e) => {
+          <input className='input w-8 mr-1 inline' value={reaction} maxlength="3" placeholder=':)' onChange={(e) => {
             setReaction(e.target.value)
           }}/>
         </Form>
+        <div className='text-gray-600'>Supports Markdown!</div>
 
       </div>
       <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank'  rel="noopener noreferrer" className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' alt='' src={heart}/></a>

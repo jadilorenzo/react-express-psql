@@ -29,7 +29,7 @@ input:hover {
 }
 
 .button-blue {
-  @apply p-1 bg-blue-500 rounded-full text-white text-center shadow h-8 w-8;
+  @apply p-1 bg-blue-500 rounded-full text-white text-center block shadow h-8 w-8;
 }
 
 .button-blue:hover {
