@@ -9,6 +9,8 @@ import heart from '../components/icon/heart.svg'
 import Logout from '../components/icon/logout.svg'
 import getAccessibleRooms from '../methods/GetAccessibleRooms'
 import getDisplayMessages from '../methods/GetDisplayMessages'
+import Markdown from 'markdown-to-jsx';
+
 
 
 function MessagePage({Api, userId}) {
@@ -74,7 +76,7 @@ function MessagePage({Api, userId}) {
     <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
       {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
         <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
-          {message.name}: {message.message} { message.message !== null ? <span className='px-1 font-bold' style={{float: 'right'}}>{message.reaction}</span> : <span className='font-bold'>{message.reaction}</span> }
+          {message.name}: {message.message !== null ? <Markdown>{message.message}</Markdown> : <span/>} { message.message !== null ? <span className='px-1 font-bold' style={{float: 'right'}}>{message.reaction}</span> : <span className='font-bold'>{message.reaction}</span> }
         </div>
       )}
     </div>

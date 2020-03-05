@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "isomorphic-fetch": "^2.2.1",
     "load-json-file": "^6.2.0",
+    "markdown-to-jsx": "^6.11.0",
     "onchange": "^6.1.0",
     "pg": "^7.18.1",
     "prop-types": "^15.7.2",
