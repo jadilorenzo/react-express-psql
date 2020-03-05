@@ -19,6 +19,7 @@ module.exports = {
         "react"
     ],
     "rules": {
-      "no-unused-vars": 0
+      "no-unused-vars": 0,
+      "no-undef": 0
     }
 };
