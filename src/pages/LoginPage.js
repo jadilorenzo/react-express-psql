@@ -13,6 +13,8 @@ function LoginPage() {
   const [passcode, setPasscode] = useState('')
   const [users, setUsers] = useState([])
   const [redirect, setRedirect] = useState(false)
+  const [failed, setFailed] = useState(false)
+
 
   useEffect(() => {
     Api.get('users').then((r) => {
@@ -44,6 +46,8 @@ function LoginPage() {
             const userId = getUser(users, username, input)[0].uid
             window.localStorage.setItem('userId', userId)
             setRedirect(true)
+          } else {
+            setFailed(true)
           }
         }} button='white' type='password' submitName='Login'>
           Passcode<br/>
@@ -53,6 +57,8 @@ function LoginPage() {
             </div>
           </div>
         </Form>
+        <br/>
+        {failed ? <strong className='text-red-600'>Login failed!</strong> : <div/>}
       </div>
     </div>
   );
