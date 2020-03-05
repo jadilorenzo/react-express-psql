@@ -22,7 +22,7 @@ function CreateUserPage() {
         <Form onMessage={(input) => {
           setUsername(input)
         }} button='none' submitName='none' type='name'>
-          Username
+          Username<br/>
         </Form>
         <Form onSubmit={({input}) => {
           const uid = v4()
