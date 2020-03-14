@@ -10,6 +10,14 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+<<<<<<< Updated upstream
+=======
+    "express-http-proxy": "^1.6.0",
+    "git": "^0.1.5",
+    "global": "^4.4.0",
+    "host-validation": "^2.0.1",
+    "howler": "^2.1.3",
+>>>>>>> Stashed changes
     "isomorphic-fetch": "^2.2.1",
     "load-json-file": "^6.2.0",
     "onchange": "^6.1.0",
