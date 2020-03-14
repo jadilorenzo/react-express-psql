@@ -9,16 +9,16 @@ import heart from '../components/icon/heart.svg'
 import Logout from '../components/icon/logout.svg'
 import getAccessibleRooms from '../methods/GetAccessibleRooms'
 import getDisplayMessages from '../methods/GetDisplayMessages'
-import Markdown from 'markdown-to-jsx';
-
-
+import notify from 'notify-space'
+import MessageComponent from '../components/MessageComponent'
 
 function MessagePage({Api, userId}) {
   const [database, setDatabase] = useState([])
   const [rooms, setRooms] = useState([])
   const [currentRoom, setCurrentRoom] = useState({})
   const [allUsers, setUsers] = useState([])
-  const [reaction, setReaction] = useState('')
+  const [reactions, setReactions] = useState([])
+
   const params = useParams()
   const lastRef = React.createRef()
 
@@ -29,6 +29,10 @@ function MessagePage({Api, userId}) {
       Api.get('messages').then(({db}) => {
         setDatabase(db)
         return {db}
+      })
+    }).then(() => {
+      Api.get('reactions').then(({db}) => {
+        setReactions(db)
       })
     })
     Api.get('rooms').then(({rooms}) => {
@@ -54,8 +58,24 @@ function MessagePage({Api, userId}) {
   }, [Api, userId])
 
   useEffect(() => {
+    const timeout = setInterval(() => {
+      Api.get('messages').then(({db}) => {
+        setDatabase(database => {
+          if (db.length !== database.length) {
+            notify({
+              text: `${db[db.length - 1].message}`,  // Message to be displayed
+            })
+          }
+          return db
+        })
+        return {db}
+      })
+    }, 10000);
+  }, [])
+
+  useEffect(() => {
     scrollIntoView(lastRef.current, {time: 0})
-  }, [database, rooms, currentRoom, lastRef])
+  }, [rooms, currentRoom, lastRef])
 
   const displayRooms = rooms.map((x, index) => {
     return (
@@ -72,16 +92,15 @@ function MessagePage({Api, userId}) {
     )
   })
 
-  const displayMessages = (getDisplayMessages(database, allUsers, currentRoom) !== 0) ? (
+  const displayMessagesArray = getDisplayMessages(database, allUsers, currentRoom, reactions)
+
+  const displayMessages = (displayMessagesArray !== 0) ? (
     <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
-      {getDisplayMessages(database, allUsers, currentRoom).map((message) =>
-        <div ref={message.ref ? lastRef : React.createRef()} className={`bubble`} key={message.index}>
-          {message.name}: {message.message !== null ? <Markdown>{message.message}</Markdown> : <span/>} { message.message !== null ? <span className='px-1 font-bold' style={{float: 'right'}}>{message.reaction}</span> : <span className='font-bold'>{message.reaction}</span> }
-        </div>
-      )}
+      {displayMessagesArray.map((message, index) => <MessageComponent message={message} reactions={reactions} lastRef={lastRef}/>)}
     </div>
   ) : <div>No Messages!</div>
 
+  // console.log({reactions, database});
 
   return (
     <div className="h-screen">
@@ -97,20 +116,13 @@ function MessagePage({Api, userId}) {
       <div className={`body-section`}>
         <div>Messages</div>
         {displayMessages}
-        <Form onSubmit={({input, setInput, setReactionInput}) => {
-          if (input !== '') {
-            sendMessage(input, reaction)
+        <Form onSubmit={({input, setInput}) => {
+            sendMessage(input)
             setInput('')
-            setReaction('')
-          }
         }}  button='blue' submitName=''>
           <div>Send</div>
-          <input className='input w-8 mr-1 inline' value={reaction} maxlength="3" placeholder=':)' onChange={(e) => {
-            setReaction(e.target.value)
-          }}/>
         </Form>
         <div className='text-gray-600'>Supports Markdown!</div>
-
       </div>
       <a href='https://github.com/jadilorenzo/react-express-psql' target='_blank'  rel="noopener noreferrer" className='m-4 opacity-75 bg-blue-600 rounded-full h-16 w-16 absolute right-0 bottom-0 p-5 hover:bg-blue-500'><img alt='' alt='' src={heart}/></a>
     </div>

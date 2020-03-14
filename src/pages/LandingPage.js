@@ -7,7 +7,7 @@ import userAdd from '../components/icon/user-add.svg'
 
 function LandingPage() {
   return (
-    <div className="h-screen w-screen bg-gray-100">
+    <div className="h-screen w-screen">
       <Header>
         Messages
       </Header>

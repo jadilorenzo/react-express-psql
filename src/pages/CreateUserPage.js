@@ -19,9 +19,7 @@ function CreateUserPage() {
     <div className="h-screen w-screen bg-gray-100">
       <div className={`header`}>Create User Page</div>
       <div className={`body-section`}>
-        <Form onMessage={(input) => {
-          setUsername(input)
-        }} button='none' submitName='none' type='name'>
+        <Form onMessage={setUsername} button='none' submitName='none' type='name'>
           Username<br/>
         </Form>
         <Form onSubmit={({input}) => {
