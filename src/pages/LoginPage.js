@@ -13,6 +13,7 @@ function LoginPage() {
   const [passcode, setPasscode] = useState('')
   const [users, setUsers] = useState([])
   const [redirect, setRedirect] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     Api.get('users').then((r) => {
@@ -25,36 +26,38 @@ function LoginPage() {
   }
 
   return (
-    <div className="h-screen w-screen bg-gray-100">
+    <div className="h-screen w-screen">
       <Header>
         Login
       </Header>
       <div className={`body-section`}>
-        <Form onChange={(input) => {
-          setUsername(input)
-        }} button='none' type='text' submitName='none'>
-          Username
+        <Form onChange={setUsername} button='none' type='text' submitName='none'>
+          Username<br/>
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>
               <img className='mx-auto pt-1' alt='' src={user}/>
             </div>
-          </div>
-        </Form>
+          </div
+>        </Form>
         <Form onSubmit={({input, setInput}) => {
           setPasscode(input)
           if (getUser(users, username, input).length !== 0) {
             const userId = getUser(users, username, input)[0].uid
             window.localStorage.setItem('userId', userId)
             setRedirect(true)
+          } else {
+            setFailed(true)
           }
         }} button='white' type='password' submitName='Login'>
-          Passcode
+          Passcode<br/>
           <div className='mb-1 bg-blue-600 p-1 rounded-full w-10'>
             <div className='user-circle'>
               <img className='mx-auto pt-1' alt='' src={lock}/>
             </div>
           </div>
         </Form>
+        <br/>
+        {failed ? <strong className='text-red-600'>Login failed!</strong> : <div/>}
       </div>
     </div>
   );

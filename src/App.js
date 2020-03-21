@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage.js'
 import AboutPage from './pages/AboutPage.js'
 import CreateUserPage from './pages/CreateUserPage.js'
 import {darkTheme} from './components/Theme'
+import notify from 'notify-space'
 
 const App = () => {
   const userId = window.localStorage.getItem('userId')

@@ -37,7 +37,7 @@ function CreateRoomPage() {
             Api.post('rooms', { rid: v4(), name: input, users: [params.userId] });
           }}
         >
-          Room Name
+          Room Name<br/>
         </Form>
       </div>
       <div className="body-section">

@@ -19,10 +19,8 @@ function CreateUserPage() {
     <div className="h-screen w-screen bg-gray-100">
       <div className={`header`}>Create User Page</div>
       <div className={`body-section`}>
-        <Form onMessage={(input) => {
-          setUsername(input)
-        }} button='none' submitName='none' type='name'>
-          Username
+        <Form onMessage={setUsername} button='none' submitName='none' type='name'>
+          Username<br/>
         </Form>
         <Form onSubmit={({input}) => {
           const uid = v4()
@@ -30,7 +28,7 @@ function CreateUserPage() {
           setUuid(uid)
           setRedirect(true)
         }} button='white' submitName='Create' type='password'>
-          Four Digit Passcode
+          Four Digit Passcode<br/>
         </Form>
       </div>
     </div>
