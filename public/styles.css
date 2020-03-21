@@ -29,7 +29,7 @@ input:hover {
 }
 
 .button-blue {
-  @apply p-1 bg-blue-500 rounded-full text-white text-center shadow h-8 w-8;
+  @apply p-1 bg-blue-500 rounded-full text-white text-center block shadow h-8 w-8;
 }
 
 .button-blue:hover {
@@ -50,4 +50,16 @@ input:hover {
 
 input {
   display: inline;
+}
+
+.reaction-button {
+  @apply border-t-2 border-b-2 border-gray-300 w-8 p-1 border-r border-l;
+}
+
+.reaction-button-start {
+  @apply border-l-2 rounded-tl rounded-bl;
+}
+
+.reaction-button-end {
+  @apply border-r-2 rounded-tr rounded-br;
 }

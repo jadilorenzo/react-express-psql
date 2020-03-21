@@ -8,7 +8,7 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
   let button = <div/>
   if (props.button === 'blue') {
     button = (
-      <button type='submit' className='button-blue'>
+      <button type='submit' className='button-blue inline'>
         <div className='mx-auto'>
           <img className='mx-auto w-1/2 h-1/2' alt='' src={send}/>
         </div>
@@ -16,7 +16,7 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
     )
   } else if (props.button === 'white') {
     button = (
-      <button className={`button`}>{props.submitName}</button>
+      <button className={`button inline`}>{props.submitName}</button>
     )
   } else {
     button = <div/>
@@ -36,7 +36,7 @@ const Form = (props = {onChange: console.log, onSubmit: console.log, type: 'text
           }
         }
       }/>
-      <div>{button}</div>
+      {button}
     </form>
   )
 };

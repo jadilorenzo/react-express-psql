@@ -7,7 +7,8 @@ const getDisplayMessages = (database, allUsers, currentRoom) => {
         message: messageRow.message,
         ref: (index === database.filter(message => message.rid === currentRoom.rid).length - 1),
         index,
-        reaction: messageRow.reaction
+        reaction: messageRow.reaction,
+        mid: messageRow.mid
       })
     )
   )
