@@ -73,7 +73,7 @@ app.post('/api/post/roomAddPerson', async (req, res) => {
 })
 
 app.post('/api/post/reactions', async (req, res) => {
-  pool.query(`INSERT INTO reactions (reactid, mid, value) VALUES ($1, $2, $3);`, [req.body.db.reactid, req.body.db.mid, req.body.db.value], (q_err, q_res) => {
+  pool.query(`INSERT INTO reactions (reactid, mid, value, uid) VALUES ($1, $2, $3, $4);`, [req.body.db.reactid, req.body.db.mid, req.body.db.value, req.body.db.uid], (q_err, q_res) => {
     res.json({q_err, q_res})
   })
 })

@@ -23,28 +23,25 @@ function MessagePage({Api, userId}) {
   const lastRef = React.createRef()
 
   const getAll = () => {
-    Api.get('users').then((r) => {
-      setUsers(r.users)
-    }).then(() => {
-      Api.get('messages').then(({db}) => {
-        setDatabase(db)
-        return {db}
+    Api.get('users')
+      .then((r) => setUsers(r.users))
+      .then(() => {
+        Api.get('messages').then(({db}) => setDatabase(db))
       })
-    }).then(() => {
-      Api.get('reactions').then(({db}) => {
-        setReactions(db)
+      .then(() => {
+        Api.get('reactions').then(({db}) => setReactions(db))
       })
-    })
-    Api.get('rooms').then(({rooms}) => {
-      const accessibleRooms = rooms.filter(room => {
-        return JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
+    Api.get('rooms')
+      .then(({rooms}) => {
+        const accessibleRooms = rooms.filter(room => {
+          return JSON.parse(room.users.replace('{', '[').replace('}', ']')).includes(params.userId)
+        })
+        setRooms(accessibleRooms)
+        if (currentRoom.rid === undefined){
+          setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
+        }
+        return {rooms}
       })
-      setRooms(accessibleRooms)
-      if (currentRoom.rid === undefined){
-        setCurrentRoom((accessibleRooms.length > 0) ? accessibleRooms[0] : {})
-      }
-      return {rooms}
-    })
   }
 
   const sendMessage = (input, reaction) => {
@@ -96,7 +93,7 @@ function MessagePage({Api, userId}) {
 
   const displayMessages = (displayMessagesArray !== 0) ? (
     <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
-      {displayMessagesArray.map((message, index) => <MessageComponent message={message} reactions={reactions} lastRef={lastRef}/>)}
+      {displayMessagesArray.map((message, index) => <MessageComponent userId={params.userId} message={message} reactions={reactions} lastRef={lastRef}/>)}
     </div>
   ) : <div>No Messages!</div>
 

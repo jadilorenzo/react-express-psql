@@ -15,7 +15,6 @@ function LoginPage() {
   const [redirect, setRedirect] = useState(false)
   const [failed, setFailed] = useState(false)
 
-
   useEffect(() => {
     Api.get('users').then((r) => {
       setUsers(r.users)
@@ -38,8 +37,8 @@ function LoginPage() {
             <div className='user-circle'>
               <img className='mx-auto pt-1' alt='' src={user}/>
             </div>
-          </div>
-        </Form>
+          </div
+>        </Form>
         <Form onSubmit={({input, setInput}) => {
           setPasscode(input)
           if (getUser(users, username, input).length !== 0) {
