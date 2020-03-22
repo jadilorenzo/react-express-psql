@@ -93,11 +93,9 @@ function MessagePage({Api, userId}) {
 
   const displayMessages = (displayMessagesArray !== 0) ? (
     <div className='overflow-y-scroll p-2 h-32 bg-gray-300 rounded shadow'>
-      {displayMessagesArray.map((message, index) => <MessageComponent userId={params.userId} message={message} reactions={reactions} lastRef={lastRef}/>)}
+      {displayMessagesArray.map((message, index) => <MessageComponent userId={params.userId} message={message} users={allUsers} reactions={reactions} lastRef={lastRef}/>)}
     </div>
   ) : <div>No Messages!</div>
-
-  // console.log({reactions, database});
 
   return (
     <div className="h-screen">
