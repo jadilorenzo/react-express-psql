@@ -63,3 +63,17 @@ input {
 .reaction-button-end {
   @apply border-r-2 rounded-tr rounded-br;
 }
+
+.landing-page {
+  background: linear-gradient(180deg, #4299e1, #e2e8f0);
+  background-color: #e66465
+}
+
+.step {
+  @apply text-gray-800 text-xl;
+  vertical-align: top;
+}
+
+.vertical-top {
+  vertical-align: top;
+}
